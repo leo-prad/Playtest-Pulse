@@ -51,18 +51,18 @@ Reset everything with `npm run reset`.
 ## Architecture
 
 ```
- ┌────────────────┐   HTTP POST /ingest     ┌──────────────────────┐
- │  Roblox game   │  (x-api-key, batched)   │   Node / Express API │
- │  Telemetry SDK │ ─────────────────────►  │ auth · games · ingest│
- └────────────────┘                         │  stats · summarize   │
-                                            └──────────┬───────────┘
+ ┌────────────────┐   HTTP POST /ingest     ┌──────────────────────-┐
+ │  Roblox game   │  (x-api-key, batched)   │   Node / Express API  │
+ │  Telemetry SDK │ ─────────────────────►  │ auth · games · ingest │
+ └────────────────┘                         │  stats · summarize    │
+                                            └──────────┬───────────-┘
  ┌────────────────┐   JWT (dashboard)                  │
  │  Dashboard SPA │ ◄──────────────────────────────────┤
  │  live polling  │                                    ▼
  └────────────────┘                            ┌──────────────┐
                                                │  JSON store  │
         ┌───────────────────────┐              └──────────────┘
-        │  LLM feedback themes   │◄── on-demand, with local fallback
+        │  LLM feedback themes  │ ◄── on-demand, with local fallback
         └───────────────────────┘
 ```
 
